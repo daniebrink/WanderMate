@@ -4,10 +4,13 @@ const globalForPg = globalThis as unknown as {
   pgPool?: Pool;
 };
 
+const isDigitalOcean = process.env.DATABASE_URL?.includes("ondigitalocean.com");
+
 export const pool =
   globalForPg.pgPool ??
   new Pool({
     connectionString: process.env.DATABASE_URL,
+    ssl: isDigitalOcean ? { rejectUnauthorized: false } : false,
   });
 
 if (process.env.NODE_ENV !== "production") globalForPg.pgPool = pool;
