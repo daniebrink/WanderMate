@@ -115,12 +115,12 @@ export const bookingTransitionSchema = z.object({
 
 export const declineBookingSchema = z.object({
   bookingId: z.string().uuid("Invalid booking"),
-  reason: z.string().max(1000).optional(),
+  reason: z.string().max(1000).nullish(),
 });
 
 export const cancelBookingSchema = z.object({
   bookingId: z.string().uuid("Invalid booking"),
-  reason: z.string().max(1000).optional(),
+  reason: z.string().max(1000).nullish(),
 });
 
 // ── Reviews ──
@@ -128,7 +128,7 @@ export const cancelBookingSchema = z.object({
 export const submitReviewSchema = z.object({
   bookingId: z.string().uuid("Invalid booking"),
   rating: z.coerce.number().int().min(1).max(5),
-  text: z.string().max(2000).optional(),
+  text: z.string().max(2000).nullish(),
 });
 
 // ── Messages ──
